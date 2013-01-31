@@ -4,8 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>MMDB : My Movie Database</title>
+    @Styles.Render("~/Content/bootstrap")
+    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    @RenderBody()
-</body>
+    <div class="container-narrow">
+        @RenderBody()
+
+      <div class="footer">
+        <p>&copy; Jacob Morris 2013</p>
+      </div>
+    </div>
+  </body>
 </html>

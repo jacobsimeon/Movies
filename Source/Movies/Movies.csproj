@@ -175,6 +175,7 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <EmbeddedResource Include="Database\Schema.sql" />
+    <Content Include="Content\app.css" />
     <Content Include="Global.asax" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

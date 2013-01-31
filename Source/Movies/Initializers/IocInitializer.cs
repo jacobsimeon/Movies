@@ -4,6 +4,7 @@
 
     using FluentValidation;
 
+    using Movies.DataAccess;
     using Movies.Models;
     using Movies.Validators;
 
@@ -27,6 +28,8 @@
                     .Use(context => context.GetInstance<ISessionFactory>().OpenSession());
 
                 ioc.For<IValidator<User>>().Use<UserValidator>();
+
+                ioc.For<IDataContext>().Use<DataContext>();
 			});
 		}
 	}
