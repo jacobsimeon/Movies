@@ -4,6 +4,8 @@
     using System.Web.Optimization;
     using System.Web.Routing;
 
+    using FluentValidation.Mvc;
+
     using Movies.Initializers;
 
     public class MvcApplication : System.Web.HttpApplication
@@ -15,7 +17,6 @@
             RouteInitializer.RegisterRoutes(RouteTable.Routes);
             BundleInitializer.RegisterBundles(BundleTable.Bundles);
             IocInitializer.InitializeObjectFactory();
-
             ControllerBuilder.Current.SetControllerFactory(typeof(StructureMapControllerFactory));
         }
     }

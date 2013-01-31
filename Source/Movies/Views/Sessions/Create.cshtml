@@ -3,7 +3,7 @@
 
 @using(var form = Html.BeginForm()){
     <fieldset>
-        <legend>Sign Up</legend>
+        <legend>Sign In</legend>
 
         @if (!ViewData.ModelState.IsValid)
         {
@@ -16,8 +16,9 @@
         @Html.TextBoxFor(m => m.Name)
         @Html.LabelFor(m => m.Password, "Password")
         @Html.PasswordFor(m => m.Password)
-        @Html.LabelFor(m => m.PasswordConfirmation, "Confirm Password")
-        @Html.PasswordFor(m => m.PasswordConfirmation)
     </fieldset>
     <input type="submit" class="btn btn-primary" />
+    <div>
+        <span>Don't have an account?</span> <a href="/Registrations/Create">Sign up</a>
+    </div>
 }

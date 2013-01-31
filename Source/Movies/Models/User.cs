@@ -1,23 +1,27 @@
 ﻿namespace Movies.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     using BCrypt.Net;
 
     public class User
     {
         public virtual int Id { get; set; }
 
+        [Required]
         public virtual string Name { get; set; }
 
-        public bool Authenticate(string candidate)
+		public virtual string HashedPassword { get; set; }
+
+        public virtual bool Authenticate(string candidate)
 		{
 			return BCrypt.Verify(candidate, HashedPassword);
 		}
 
-		public virtual string HashedPassword { get; set; }
-
 		private string _Password;
 
-		public string Password
+        [Required]
+		public virtual string Password
 		{
 			get
 			{
@@ -25,9 +29,15 @@
 			}
 			set
 			{
-				HashedPassword = BCrypt.HashPassword(value);
+                if (value != null)
+                {
+    				HashedPassword = BCrypt.HashPassword(value);
+                }
 				_Password = value;
 			}
 		}
+
+        [Required]
+        public virtual string PasswordConfirmation { get; set; }
     }
 }
