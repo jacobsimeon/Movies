@@ -1,6 +1,12 @@
 ﻿@model Movies.Models.User
 @{ ViewBag.Title = "MMDB : Sign UP"; }
 
+<ul class="nav nav-pills">
+  <li class="active">
+    <a href="/">Home</a>
+  </li>
+</ul>
+
 @using(var form = Html.BeginForm()){
     <fieldset>
         <legend>Sign Up</legend>
@@ -21,3 +27,6 @@
     </fieldset>
     <input type="submit" class="btn btn-primary" />
 }
+<div>
+    <span>Already have an account?</span> <a href="/Sessions/Create">Sign in</a>
+</div>

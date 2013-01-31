@@ -1,9 +1,10 @@
-﻿@{ ViewBag.Title = "My Movies"; }
+﻿@using Movies
+@using Movies.Models
+@model IEnumerable<Movies.Models.Movie>
+
+@{ ViewBag.Title = "My Movies"; }
 
 <ul class="nav nav-pills">
-  <li class="active">
-    <a href="#">Home</a>
-  </li>
   <li class="pull-right">
       <form action="/Sessions/Delete" method="POST">
           <button class="btn btn-link" type="Submit">Logout</button>
@@ -11,4 +12,113 @@
   </li>
 </ul>
 
-My MOvies
+<h2>My Movies</h2>
+
+@if (!Model.Any()) {
+    <span>No Movies yet.</span>
+} else {
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Rating</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model) {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.Genre</td>
+                <td>
+                    <form action="Movies/@movie.Id/Rating" method="Post">
+                        <input type="hidden" name="Rating" value="@movie.Rating"/>
+                        <span style="margin-left: 5px" class="stars">
+                            @for (var i = 0; i < 5; i++) {
+                                var iconClass = i < movie.Rating ? "icon-star" : "icon-star-empty";
+                                <i class="@iconClass star edit" data-value="@(i + 1)" style="cursor: pointer"></i>
+                            }
+                        </span>
+                    </form>
+                </td>
+                <td>
+                    <form action="Movies/Delete/@movie.Id">
+                        <button type="submit" class="btn btn-danger pull-right">
+                            <i class="icon-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+<div class="well">
+    @using (Html.BeginForm("Create", "Movies", FormMethod.Post)) {
+        <fieldset>
+            <input type="text" name="Title" placeholder="Movie Title">
+            @Html.DropDownList("Genre", Genres.All.Select(g => new SelectListItem { Value = g, Text = g, Selected = false}))
+            <input type="hidden" value="1" id="rating" name="Rating"/>
+            <div class="pull-right">
+                <input type="submit" class="btn" value="Add Movie" />
+            </div>
+            <span style="margin-left: 5px" class="stars">
+                <i class="icon-star star" style="cursor: pointer" data-value="1"></i>
+                @for (var i = 1; i <= 4; i++) {
+                    <i class="icon-star-empty star" data-value="@(i + 1)" style="cursor: pointer"></i>
+                }
+            </span>
+        </fieldset>
+        <div>
+            @Html.ValidationSummary()
+        </div>
+    }
+</div>
+<script>
+    $('.star').mouseover(function () {
+        var orig = $(this);
+        var prev = orig;
+        var next = orig.next('.star');
+        
+        while (prev.length > 0) {
+            prev.removeClass('icon-star-empty');
+            prev.addClass('icon-star');
+            prev = prev.prev('.star');
+        }
+        
+        while (next.length > 0) {
+            next.removeClass('icon-star');
+            next.addClass('icon-star-empty');
+            next = next.next('.star');
+        }
+    });
+    
+    $('.star').click(function () {
+        var rating = $(this).data('value');
+        var form = $(this).parents('form');
+        var input = form.find('input[name=Rating]');
+        input.val(rating);
+        if ($(this).hasClass('edit')) {
+            form.submit();
+        }
+    });
+    
+    $('.stars').mouseout(function () {
+        var form = $(this).parents('form');
+        var rating = parseInt(form.find('input[name=Rating]').val());
+        var stars = form.find('.star');
+        
+        stars.each(function () {
+            if (rating >= parseInt($(this).data('value'))) {
+                $(this).removeClass('icon-star-empty');
+                $(this).addClass('icon-star');
+            } else {
+                $(this).removeClass('icon-star');
+                $(this).addClass('icon-star-empty');
+            }
+        });
+    });
+
+</script>

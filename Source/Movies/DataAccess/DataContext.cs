@@ -7,6 +7,8 @@
     public interface IDataContext
     {
         IRepository<User> Users { get; }
+
+        IRepository<Movie> Movies { get; }
     }
 
     public class DataContext : IDataContext
@@ -27,5 +29,15 @@
                 return _Users = _Users ?? new Repository<User>(_Session);
             }
         }
+
+        private IRepository<Movie> _Movies; 
+
+        public IRepository<Movie> Movies
+        {
+            get
+            {
+                return _Movies = _Movies ?? new Repository<Movie>(_Session);
+            }
+        } 
     }
 }

@@ -1,12 +1,22 @@
 ﻿namespace Movies.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using BCrypt.Net;
 
-    public class User
+    using Movies.DataAccess;
+
+    public class User : IPrimaryKeyable
     {
+        public User()
+        {
+            Movies = new List<Movie>();
+        }
+
         public virtual int Id { get; set; }
+
+        public virtual IList<Movie> Movies { get; set; }
 
         [Required]
         public virtual string Name { get; set; }
