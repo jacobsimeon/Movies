@@ -16,7 +16,7 @@ be generated on your system that will be used as the data store.
 ## Basic workflow
 
 1. Click the 'sign-up' button on the home page to get started.
-2. Enter any username/password to sign up.
+2. Enter any username/password to sign up.  
   Login system is pretty basic and uses the BCrypt algorithm for password hashing.
 
 3. Once you're at the home page, you can start adding movies and ratings.
