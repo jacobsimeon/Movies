@@ -2,6 +2,11 @@
 {
     using System.Configuration;
 
+    using FluentValidation;
+
+    using Movies.Models;
+    using Movies.Validators;
+
     using NHibernate;
 
     using StructureMap;
@@ -20,6 +25,8 @@
 				ioc.For<ISession>()
                     .HttpContextScoped()
                     .Use(context => context.GetInstance<ISessionFactory>().OpenSession());
+
+                ioc.For<IValidator<User>>().Use<UserValidator>();
 			});
 		}
 	}

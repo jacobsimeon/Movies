@@ -1,0 +1,3 @@
+﻿CREATE TABLE IF NOT EXISTS Users(
+    Id INT NOT NULL
+)
