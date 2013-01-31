@@ -4,7 +4,6 @@
 
 ```
 git clone git@github.com:jacobsimeon/Movies.git
-
 ```
 
 ## Run
